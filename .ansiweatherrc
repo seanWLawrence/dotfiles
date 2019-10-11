@@ -1,0 +1,10 @@
+location:Seattle,US
+fetch_cmd:curl -sf
+units:imperial
+ansi:true
+symbols:true
+forecast:1
+show_uvi:false
+show_wind:false
+show_humidity:false
+show_pressure:false
