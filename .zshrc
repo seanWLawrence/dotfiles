@@ -92,7 +92,14 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='nvim'
 # fi
-export EDITOR=vim
+export EDITOR=nvim
+export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+export NPM_TOKEN="0ddef960-96ab-485c-955e-8fb4b8de5135"
+
+# -l means only search for matching files
+# --nocolor means to not print color codes in results
+# -g "" means to print all file names that match this pattern
+#
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -105,6 +112,18 @@ export EDITOR=vim
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Config files
+alias zshrc="vi ~/.zshrc"
+alias vimrc="vi ~/.config/nvim/init.vim"
+alias agi="vi ~/.agignore"
+alias giti="vi ~/.gitignore"
+alias griprc="vi ~/.grip/settings.py"
+alias tmuxrc="vi ~/.tmux.conf"
+
+alias zshrcu="source ~/.zshrc"
+
+# Git
 alias gc="git commit"
 alias gco="git checkout"
 alias gcm="git checkout master"
@@ -114,19 +133,57 @@ alias gca="git commit --amend"
 alias gpf="git push --no-verify"
 alias gap="git add -p"
 alias gs="git status"
-alias gl="git log --oneline"
+alias gl="git log --oneline --decorate --graph"
 alias grh="git reset --hard"
 alias gr="git reset"
-alias vi="nvim"
-alias rc="bin/rails console"
-alias rails="bin/rails"
-alias rs="bin/rails server"
-alias weather="ansiweather | awk '{print$1,$2,$8,$9,$10}'"
+alias gcb="git symbolic-ref --short HEAD"
+alias gpo="git push --set-upstream origin $(gcb)"
+alias gpum="git fetch --all && git pull upstream master"
+alias gref="git reflog"
+alias gstash="git stash"
+alias gstasha="git stash apply"
+alias gstashpm="git stash push -m"
+alias gbpl="git for-each-ref --format '%(refname:short)' refs/heads | grep -v master | xargs git branch -D"
 
-function kill_port() {
-  kill $(lsof -t -i:$1)
+function gcpr() {
+  echo "Checking out pull request $1:$2 locally..."
+  git fetch upstream pull/$1/head:$2
+  git checkout $2
 }
 
+
+# Watson time tracker
+alias ws="watson start"
+alias wr="watson restart"
+alias wstop="watson stop"
+alias wl="watson log"
+alias wa="watson aggregate"
+alias we="watson edit"
+
+# Vim
+alias vi="nvim"
+
+# Tmux
+alias tn="tmux new -s"
+alias ta="tmux attach -t"
+alias ts="tmux switch -t"
+alias tl="tmux list-sessions"
+alias td="tmux detach"
+alias tq="exit"
+
+# Rails
+alias rc="bin/rails console"
+alias rs="bin/rails server"
+
+# Misc
+alias weather="ansiweather | awk '{print $1 $2 $8 $9 $10}'"
+alias ascii="asciinema"
+alias g="googler"
+alias bg="cd ~/Code/beastgrip && ./beastgrip.rb"
+alias bgu="vi ~/Code/beastgrip/lib/database.yml"
+alias am="awsmobile"
+
+# Creates directory recursively and changes into it
 function mkdircd() {
   mkdir -p $1
   cd $1
@@ -134,9 +191,18 @@ function mkdircd() {
 
 # Activate Rbenv ruby version manager
 eval "$(rbenv init -)"
+
+# Activate ssh agent and add make school and personal keys (silently)
+eval "$(ssh-agent -s)" &> /dev/null
+
+ssh-add -K ~/.ssh/id_rsa_makeschool &> /dev/null
+ssh-add -K ~/.ssh/id_rsa &> /dev/null
+
+# Prevent error shwn ecalling rake tasks with arguments
+unsetopt nomatch
+
 # Activate syntax highlighting
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`

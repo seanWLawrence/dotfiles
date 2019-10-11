@@ -1,4 +1,29 @@
 [core]
 	excludesfile = /Users/sean/.gitignore
+  # Improves diffs
+  attributesFile = ~/.gitattributes
 [mergetool]
 	keepBackup = false
+[fetch]
+  # Always prune when fetching or pulling
+  prune = 1
+[rerere]
+  # Store and re-use conflict resolution changes
+  enabled = 1
+[diff] 
+  algorithm = patience
+[diff "xml"]
+  textconv = xmllint --format --recover
+[mergetool]
+  prompt = false
+  keepBackup = false
+  keepTemporaries = false
+[apply]
+  whitespace = fix
+[credential]
+  helper = osxkeychain
+[user]
+	name = Sean W. Lawrence
+	email = sean.w.lawrence@gmail.com
+[pull]
+	rebase = false
