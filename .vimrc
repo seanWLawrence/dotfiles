@@ -308,4 +308,4 @@ nnoremap <leader>vimrcu :so ~/.config/nvim/init.vim<cr>
 nnoremap <leader>bh :resize
 
 " adjust buffer width
-nnoremap <leader>bw :vertical resize
+nnoremap <leader>bw :vertical resize 
