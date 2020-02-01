@@ -35,6 +35,8 @@ Plug 'junegunn/limelight.vim'
 Plug 'SirVer/ultisnips'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
+Plug 'zivyangll/git-blame.vim'
+Plug 'Konfekt/vim-scratchpad'
 
 call plug#end()
 
@@ -62,6 +64,8 @@ let g:ale_fixers = {
 \ 'scss': ['prettier'],
 \ 'sass': ['prettier'],
 \ 'ruby': ['rubocop'],
+\ 'thor': ['rubocop'],
+\ 'erb': ['rubocop'],
 \ }
 
 " Prevent jarring lint errors
@@ -138,31 +142,6 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 set modifiable
 
 " General commands
-"
-" Alias 'S' for 'Ack'
-command -nargs=1 S Ack <args>
-
-" Git commands
-command -nargs=1 Gsync ! git fetch --all && git pull upstream <args>
-command Gpf ! git push --no-verify
-command -nargs=1 Gcm ! git commit -m <args>
-command -nargs=1 Gco ! git checkout <args>
-command -nargs=1 Gcob ! git checkout -b <args>
-command Gaa ! git add .
-command Gca ! git commit --amend
-command Gc ! git commit 
-command Gl ! git log --reverse
-
-" Make School commands
-command Graphql ! ./server graphql
-command PullStagingDb ! ./server pull_staging_db
-command Jest ! yarn test:hook
-command CypressStart ! yarn test:e2e:integration:start
-command CypressRun ! yarn test:e2e:integration:run
-
-
-" Show line numbers
-" set number
 
 " Set the Silver Searcher up to search through files
 if executable('ag')
@@ -242,7 +221,7 @@ let g:limelight_conceal_guifg = '#999999'
 nnoremap <leader>bsv :vsplit<cr>
 
 " Split buffer horizontally with <leader>bs (buffer split)
-nnoremap <leader>bs :split<cr>
+nnoremap <leader>bsh :split<cr>
 
 " close Magit after commiting
 let g:magit_auto_close = 1
@@ -255,9 +234,6 @@ nnoremap <leader>gmv :Magit<cr>
 
 " Detach from Tmux session with <leader>td (tmux detach)
 nnoremap <leader>td :! tmux detach<cr>
-
-" Search dash with :Sd (search dash)
-command -nargs=1 Sd :Dash <args>
 
 " Show the first match for the pattern, while you are still typing it
 set incsearch
@@ -309,3 +285,43 @@ nnoremap <leader>bh :resize
 
 " adjust buffer width
 nnoremap <leader>bw :vertical resize 
+
+" Display git blame for current line
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+" Set scratchpad file path (relative to the cwd)
+let g:scratchpad_path = '.scratchpads'
+
+" Set scratchpad file type to MD
+let g:scratchpad_ftype = 'md'
+
+" Toggle scratchpad with <leader>sp (scratch pad)
+nmap <leader>sp <Plug>(ToggleScratchPad)
+
+" Display comments in italic
+
+hi Comment cterm=italic
+hi jsStorageClass cterm=italic
+hi jsExport cterm=italic
+hi jsImport cterm=italic
+hi jsFrom cterm=italic
+hi jsExportDefault cterm=italic
+hi jsModuleAs cterm=italic
+hi jsConditional cterm=italic
+hi jsRepeat cterm=italic
+hi jsSwitchCase cterm=italic
+hi jsTry cterm=italic
+hi jsCatch cterm=italic
+hi jsFinally cterm=italic
+hi jsException cterm=italic
+hi jsAsyncKeyword cterm=italic
+hi jsStatement cterm=italic
+hi rubyDefine cterm=italic
+hi rubyClass cterm=italic
+hi rubyModule cterm=italic
+hi rubyAccess cterm=italic
+hi rubyControl cterm=italic
+hi rubyException cterm=italic
+hi rubyInclude cterm=italic
+hi rubyMacro cterm=italic
+hi rubyConditional cterm=italic

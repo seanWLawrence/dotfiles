@@ -137,28 +137,37 @@ alias gl="git log --oneline --decorate --graph"
 alias grh="git reset --hard"
 alias gr="git reset"
 alias gcb="git symbolic-ref --short HEAD"
+# git push all
+alias gpa="git push && git push heroku master"
+# git push origin
 alias gpo="git push --set-upstream origin $(gcb)"
+# git pull upstream master
 alias gpum="git fetch --all && git pull upstream master"
 alias gref="git reflog"
-alias gstash="git stash"
-alias gstasha="git stash apply"
-alias gstashpm="git stash push -m"
+alias gst="git stash"
+alias gsta="git stash apply"
+alias gstp="git stash pop"
+alias gstpm="git stash push -m"
+# git branch prune local
 alias gbpl="git for-each-ref --format '%(refname:short)' refs/heads | grep -v master | xargs git branch -D"
-
+# git checkout pull request
 function gcpr() {
   echo "Checking out pull request $1:$2 locally..."
   git fetch upstream pull/$1/head:$2
   git checkout $2
 }
+# git login make school
+function glms() {
+  eval "$(ssh-agent -s)"
 
+  ssh-add -K ~/.ssh/id_rsa_makeschool
+}
+# Git login personal
+function glp() {
+  eval "$(ssh-agent -s)"
 
-# Watson time tracker
-alias ws="watson start"
-alias wr="watson restart"
-alias wstop="watson stop"
-alias wl="watson log"
-alias wa="watson aggregate"
-alias we="watson edit"
+  ssh-add -K ~/.ssh/id_rsa
+}
 
 # Vim
 alias vi="nvim"
@@ -174,14 +183,16 @@ alias tq="exit"
 # Rails
 alias rc="bin/rails console"
 alias rs="bin/rails server"
+alias r="bin/rails"
 
 # Misc
 alias weather="ansiweather | awk '{print $1 $2 $8 $9 $10}'"
 alias ascii="asciinema"
 alias g="googler"
-alias bg="cd ~/Code/beastgrip && ./beastgrip.rb"
-alias bgu="vi ~/Code/beastgrip/lib/database.yml"
-alias am="awsmobile"
+alias bg="cd ~/Coding/beastgrip && ./beastgrip.rb"
+alias bgu="vi ~/Coding/beastgrip/lib/database.yml"
+# Open VS Code in current working directory
+alias vsc="code ."
 
 # Creates directory recursively and changes into it
 function mkdircd() {
@@ -189,14 +200,21 @@ function mkdircd() {
   cd $1
 }
 
+# Make School
+#
+# rails dev all
+alias rda="bin/rails dev:all"
+#rails dev backend
+alias rdb="bin/rails dev:backend"
+# rails dev react applications
+alias rdra="bin/rails dev:react_applications"
+# rails spec react applications
+alias rsr="bin/rails spec:react_applications"
+# rails spec backend
+alias rsb="bin/rails spec:backend"
+
 # Activate Rbenv ruby version manager
 eval "$(rbenv init -)"
-
-# Activate ssh agent and add make school and personal keys (silently)
-eval "$(ssh-agent -s)" &> /dev/null
-
-ssh-add -K ~/.ssh/id_rsa_makeschool &> /dev/null
-ssh-add -K ~/.ssh/id_rsa &> /dev/null
 
 # Prevent error shwn ecalling rake tasks with arguments
 unsetopt nomatch
@@ -213,3 +231,11 @@ source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+
+path+=('$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH')
+path+=('/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin')
+
+export PATH
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/vscode.app/Contents/Resources/app/bin"
+export TERM=xterm-256color-italic
