@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/sean/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -92,9 +92,8 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='nvim'
 # fi
-export EDITOR=nvim
+export EDITOR="code"
 export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
-export NPM_TOKEN="0ddef960-96ab-485c-955e-8fb4b8de5135"
 
 # -l means only search for matching files
 # --nocolor means to not print color codes in results
@@ -156,12 +155,7 @@ function gcpr() {
   git fetch upstream pull/$1/head:$2
   git checkout $2
 }
-# git login make school
-function glms() {
-  eval "$(ssh-agent -s)"
 
-  ssh-add -K ~/.ssh/id_rsa_makeschool
-}
 # Git login personal
 function glp() {
   eval "$(ssh-agent -s)"
@@ -200,19 +194,6 @@ function mkdircd() {
   cd $1
 }
 
-# Make School
-#
-# rails dev all
-alias rda="bin/rails dev:all"
-#rails dev backend
-alias rdb="bin/rails dev:backend"
-# rails dev react applications
-alias rdra="bin/rails dev:react_applications"
-# rails spec react applications
-alias rsr="bin/rails spec:react_applications"
-# rails spec backend
-alias rsb="bin/rails spec:backend"
-
 # Activate Rbenv ruby version manager
 eval "$(rbenv init -)"
 
@@ -222,20 +203,9 @@ unsetopt nomatch
 # Activate syntax highlighting
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
-
 path+=('$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH')
 path+=('/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin')
 
 export PATH
 # Add Visual Studio Code (code)
-export PATH="$PATH:/Applications/vscode.app/Contents/Resources/app/bin"
 export TERM=xterm-256color-italic
