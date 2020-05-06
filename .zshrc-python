@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH="/root/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -70,7 +70,6 @@ ZSH_THEME="lambda"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git 
-	docker 
 	vi-mode
 	colorize 
 	zsh-z
@@ -112,14 +111,6 @@ export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Config files
-alias zshrc="vi ~/.zshrc"
-alias vimrc="vi ~/.config/nvim/init.vim"
-alias agi="vi ~/.agignore"
-alias giti="vi ~/.gitignore"
-alias griprc="vi ~/.grip/settings.py"
-alias tmuxrc="vi ~/.tmux.conf"
-
 alias zshrcu="source ~/.zshrc"
 
 # Git
@@ -155,36 +146,6 @@ function gcpr() {
   git fetch upstream pull/$1/head:$2
   git checkout $2
 }
-
-# Git login personal
-function glp() {
-  eval "$(ssh-agent -s)"
-
-  ssh-add -K ~/.ssh/id_rsa
-}
-
-# Vim
-alias vi="nvim"
-
-# Tmux
-alias tn="tmux new -s"
-alias ta="tmux attach -t"
-alias ts="tmux switch -t"
-alias tl="tmux list-sessions"
-alias td="tmux detach"
-alias tq="exit"
-
-# Rails
-alias rc="bin/rails console"
-alias rs="bin/rails server"
-alias r="bin/rails"
-
-# Misc
-alias weather="ansiweather | awk '{print $1 $2 $8 $9 $10}'"
-alias ascii="asciinema"
-alias g="googler"
-alias bg="cd ~/Coding/beastgrip && ./beastgrip.rb"
-alias bgu="vi ~/Coding/beastgrip/lib/database.yml"
 # Open VS Code in current working directory
 alias vsc="code ."
 
@@ -193,19 +154,8 @@ function mkdircd() {
   mkdir -p $1
   cd $1
 }
-
-# Activate Rbenv ruby version manager
-eval "$(rbenv init -)"
-
-# Prevent error shwn ecalling rake tasks with arguments
-unsetopt nomatch
-
+#
 # Activate syntax highlighting
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-path+=('$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH')
-path+=('/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin')
-
 export PATH
-# Add Visual Studio Code (code)
-export TERM=xterm-256color-italic
